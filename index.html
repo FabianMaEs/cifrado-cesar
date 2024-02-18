@@ -1,15 +1,22 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Caesar Cipher</title>
+    <title>Cifrado César</title>
     <style>
         * {
             font-size: larger;
+            box-sizing: border-box;
         }
         body {
             background-color: black;
             color: lime;
             font-family: "Courier New", monospace;
+            padding: 20px;
+        }
+
+        label {
+            margin-bottom: 5px;
+            display: block;
         }
 
         input[type="text"], input[type="number"] {
@@ -17,7 +24,10 @@
             color: lime;
             border: 1px solid lime;
             font-family: "Courier New", monospace;
-            margin: 5px;
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 5px;
+            width: 100%;
         }
 
         button {
@@ -26,7 +36,10 @@
             border: 1px solid lime;
             font-family: "Courier New", monospace;
             cursor: pointer;
-            margin: 5px;
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 5px;
+            width: 100%;
         }
 
         #result {
@@ -34,22 +47,27 @@
             color: lime;
             border: 1px solid lime;
             font-family: "Courier New", monospace;
-            margin: 5px;
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 5px;
+            width: 100%;
         }
     </style>
 </head>
 <body>
-    <h1>Caesar Cipher</h1>
-    <label for="text">Text:</label>
-    <input type="text" id="text"><br>
-    <label for="shift">Shift:</label>
-    <input type="number" id="shift"><br>
-    <input type="radio" id="encrypt" name="operation" value="encrypt" checked>
-    <label for="encrypt">Encrypt</label>
-    <input type="radio" id="decrypt" name="operation" value="decrypt">
-    <label for="decrypt">Decrypt</label><br>
-    <button onclick="process()">Process</button><br>
-    <label for="result">Result:</label>
+    <h1>Cifrado César</h1>
+    <label for="text">Texto:</label>
+    <input type="text" id="text">
+    <label for="shift">Desplazamiento:</label>
+    <input type="number" id="shift">
+    <div>
+        <input type="radio" id="encrypt" name="operation" value="encrypt" checked>
+        <label for="encrypt">Encriptar</label>
+        <input type="radio" id="decrypt" name="operation" value="decrypt">
+        <label for="decrypt">Desencriptar</label>
+    </div>
+    <button onclick="process()">Procesar</button>
+    <label for="result">Resultado:</label>
     <input type="text" id="result" readonly>
 </body>
 <script>
