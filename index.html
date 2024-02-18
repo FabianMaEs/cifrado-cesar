@@ -1,0 +1,114 @@
+!DOCTYPE html>
+<html>
+<head>
+    <title>Caesar Cipher</title>
+    <style>
+        * {
+            font-size: larger;
+        }
+        body {
+            background-color: black;
+            color: lime;
+            font-family: "Courier New", monospace;
+        }
+
+        input[type="text"], input[type="number"] {
+            background-color: black;
+            color: lime;
+            border: 1px solid lime;
+            font-family: "Courier New", monospace;
+            margin: 5px;
+        }
+
+        button {
+            background-color: black;
+            color: lime;
+            border: 1px solid lime;
+            font-family: "Courier New", monospace;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        #result {
+            background-color: black;
+            color: lime;
+            border: 1px solid lime;
+            font-family: "Courier New", monospace;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Caesar Cipher</h1>
+    <label for="text">Text:</label>
+    <input type="text" id="text"><br>
+    <label for="shift">Shift:</label>
+    <input type="number" id="shift"><br>
+    <input type="radio" id="encrypt" name="operation" value="encrypt" checked>
+    <label for="encrypt">Encrypt</label>
+    <input type="radio" id="decrypt" name="operation" value="decrypt">
+    <label for="decrypt">Decrypt</label><br>
+    <button onclick="process()">Process</button><br>
+    <label for="result">Result:</label>
+    <input type="text" id="result" readonly>
+</body>
+<script>
+    function encrypt() {
+        var plaintext = document.getElementById("text").value;
+        var shift = parseInt(document.getElementById("shift").value);
+        var ciphertext = "";
+
+        for (var i = 0; i < plaintext.length; i++) {
+            var charCode = plaintext.charCodeAt(i);
+
+            if (charCode >= 65 && charCode <= 90) { // Uppercase letters
+                ciphertext += String.fromCharCode((charCode - 65 + shift) % 26 + 65);
+            } else if (charCode >= 97 && charCode <= 122) { // Lowercase letters
+                ciphertext += String.fromCharCode((charCode - 97 + shift) % 26 + 97);
+            } else if (charCode === 209) { // Letter "Ñ" (Uppercase)
+                ciphertext += String.fromCharCode((209 - 65 + shift) % 26 + 65);
+            } else if (charCode === 241) { // Letter "ñ" (Lowercase)
+                ciphertext += String.fromCharCode((241 - 97 + shift) % 26 + 97);
+            } else {
+                ciphertext += plaintext.charAt(i);
+            }
+        }
+
+        document.getElementById("result").value = ciphertext;
+    }
+
+    function decrypt() {
+        var ciphertext = document.getElementById("text").value;
+        var shift = parseInt(document.getElementById("shift").value);
+        var plaintext = "";
+
+        for (var i = 0; i < ciphertext.length; i++) {
+            var charCode = ciphertext.charCodeAt(i);
+
+            if (charCode >= 65 && charCode <= 90) { // Uppercase letters
+                plaintext += String.fromCharCode((charCode - 65 - shift + 26) % 26 + 65);
+            } else if (charCode >= 97 && charCode <= 122) { // Lowercase letters
+                plaintext += String.fromCharCode((charCode - 97 - shift + 26) % 26 + 97);
+            } else if (charCode === 209) { // Letter "Ñ" (Uppercase)
+                plaintext += String.fromCharCode((209 - 65 - shift + 26) % 26 + 65);
+            } else if (charCode === 241) { // Letter "ñ" (Lowercase)
+                plaintext += String.fromCharCode((241 - 97 - shift + 26) % 26 + 97);
+            } else {
+                plaintext += ciphertext.charAt(i);
+            }
+        }
+
+        document.getElementById("result").value = plaintext;
+    }
+
+    function process() {
+        var encryptRadio = document.getElementById("encrypt");
+        if (encryptRadio.checked) {
+            encrypt();
+        } else {
+            decrypt();
+        }
+        
+    }
+</script>
+</html>
